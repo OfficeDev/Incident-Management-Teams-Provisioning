@@ -1,4 +1,4 @@
-# Introduction 
+﻿# Introduction 
 Organizations of all types need to respond to events and incidents, planned and unplanned. Responding in a standard and timely manner helps organizations achieve better outcomes and communications status to stakeholders. 
 
 Planning for events includes templated documents, communication processes, reporting dashboards and task management. Today organizations may have all those documents and tools in separate portals and platforms. Microsoft Teams is a central hub for collaboration and brings together these documents and sites into one work area. 
@@ -13,7 +13,7 @@ This project demonstrates how to provision Microsoft Teams with pre-configured c
 2. M365 Tenant admin account
 
 # Build and Test
-Build the solution, run the solution on windows platform
+[Config the solution](Deployment%20Guide.md), build and test it on windows platform 
 
 # Contributing
 This project welcomes contributions and suggestions. Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to,
