@@ -15,7 +15,7 @@ This project demonstrates how to provision Microsoft Teams with pre-configured c
 
 We have published the following walk-through video to help with the deployment process and to get a functional understanding:
 
-- [SharePoint configuration, register the app, and app configuration](https://interopevents.blob.core.windows.net/uploads/misc/teamstool2.mp4)
+- [SharePoint site configuration, register the app, and app configuring file](https://interopevents.blob.core.windows.net/uploads/misc/teamstool2.mp4)
 
 
 # Build and Test
