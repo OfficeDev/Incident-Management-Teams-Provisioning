@@ -7,7 +7,7 @@ With Microsoft Graph an event-specific Teams space is quickly provisioned by add
 
 This project demonstrates how to provision Microsoft Teams with pre-configured channels, naming  convention, templated documents, tab apps using Graph APIs, where all of the content management is configured in SharePoint lists. This project works across all types of Office 365 tenants, including Office 365 US Government Community (GCC).
 
-[noaa national weather map](https://interopevents.blob.core.windows.net/uploads/misc/Weather Map.PNG)
+![noaa national weather map](https://interopevents.blob.core.windows.net/uploads/misc/Weather Map.PNG)
 
 # Getting Started
 1. Install Visual Studio 2017 or 2019
@@ -32,4 +32,4 @@ This project has adopted the [Microsoft Open Source Code of Conduct](https://ope
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)
 or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-[#Microsoft Open Source Code of Conduct] (https://opensource.microsoft.com/codeofconduct)
+# [Microsoft Open Source Code of Conduct] (https://opensource.microsoft.com/codeofconduct)
