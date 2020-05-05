@@ -1,4 +1,4 @@
-# Incident Management Teams Provisioning
+﻿# Incident Management Teams Provisioning
 
 ## Introduction
 Organizations of all types need to respond to events and incidents, planned and unplanned. Responding in a standard and timely manner helps organizations achieve better outcomes and communicationss status to stakeholders. 
@@ -10,10 +10,10 @@ With the Microsoft Graph an event-specific Teams space is quickly provisioned by
 This project demonstrates how to provision Microsoft Teams with pre-configured channels, naming convention, templated documents, tab apps using Graph APIs, where all of the content management is configured in SharePoint lists. This project works across all types of Office 365 tenants, including [Office 365 US Government Community (GCC)](https://docs.microsoft.com/en-us/office365/servicedescriptions/office-365-platform-service-description/office-365-us-government/gcc).
 
 The demo project has two pieces that can be replaced easily to fit with your business requirements:
-- To get the group IDs for creating the Teams team, the project uses the United States COVID-19 data from Johns Hopkins as a trigger. Please make sure to [create O365 groups](#create-office-365-groups-in-azure-active-directory) for at least one state in the United States (For example, “Washington”) in Azure Active Directory before running the code if you would like to run with this default trigger, the display name of the group should match the state name. If you want to replace the logic, implement the interface ITrigger and replace your implementation inside the Factory class.
+- To get the group IDs for creating the Teams team, the project uses the national weather alert API as a trigger. If you want to replace the logic, implement the interface ITrigger and replace your implementation inside the Factory class.
 - The demo code extracts Teams team structure data from SharePoint lists and the document library. If you have the data hosted somewhere else, implement the interface ITeamsStructureExtractor and replace your implementation inside the Factory class.
 
-This project uses a SharePoint site as the console and host for configuring how future sites and Teams get created, referred to as the “Teams Structure Configuration Site”. As part of setting up this Incident Management provisioning system, you’ll first set up the up the Teams Structure Configuration Site
+This project uses a SharePoint site as the console and host for configuring how future sites and Teams get created, referred to as the “Teams Structure Configuration Site”. As part of setting up this Incident Management provisioning system, you’ll first set up the up the Teams Structure Configuration Site.
 
 To continue, please make sure you are an administrator and have an admin username and password for the Microsoft 365 tenant you want to deploy to.
 ## Configure the Teams Structure Configuration Site in SharePoint
@@ -87,7 +87,8 @@ This code needs Microsoft Graph application permission so you will need to regis
 
 ![New registrations](Images/14.png)
 
-### 3. Add the “Application permissions” for this app- make sure to select all required permissions (Files.ReadWrite.All, Group.ReadWrite.All, Sites.ReadWrite.All). You will have to search those permissions one by one and check them.
+### 3. Please add both the "Application permissions" and "Delegated permissions" for this app- make sure to select all required permissions ("Application permissions": Files.ReadWrite.All, Group.ReadWrite.All, Directory.ReadWrite.All and Group.Create; "Delegated permissions": Sites.ReadWrite.All). You will have to search those permissions one by one and check them. 
+Ideally, we should use "Application permissions" for auto tools, however, the "Sites.ReadWrite.All" scope of "Application permissions" is still a preview feature, so we are using the "Sites.ReadWrite.All" scope of "Delegated permissions". 
 
 ![View API permissions](Images/15.png)
 
@@ -126,6 +127,18 @@ The value should be the client id for the registered application.
 <add key="AppClientSecret" value=""/>
 ```
 The value should be the client secret generated inside the registered application.
+```
+<add key="AdminUserId" value=""/>
+```
+The value should be the admin user id, it's similar as [find the group id in Azure Active Directory](#how-to-find-the-group-id-for-a-o365-group), just search inside "Users" instead of "Groups".
+```
+<add key="AdminUserName" value=""/>
+```
+The value should be the admin user name, like admin@xxx.com.
+```
+<add key="AdminPassword" value=""/>
+```
+The value should be the admin user password.
 ```
 <add key="SharePointGroupId" value=""/>
 ```
@@ -171,18 +184,6 @@ For how to find the name for a giving document library, refer to [this section](
 ```
 This value should be the column name for the Channel name look up field we configured in [this section](#create-the-channels-documents-data). 
 For how to find the column name in SharePoint, refer to [this section](#how-to-find-the-sharepoint-list-column-name).
-
-## Create Office 365 Groups in Azure Active Directory
-
-1. Login into the [Azure portal](https://ms.portal.azure.com/) with admin account  
-2. Create a new group
-Please make sure it’s a new Office 365 group and add owners and members for this group (So that you can see it in Teams). And if you are running with the default trigger in the demo code, please add some groups with the United States state name(s) as the display name.
-
-![Azure Active Directory](Images/23.png)   ![Groups](Images/24.png) 
-
-![New group](Images/25.png)
-
-![New group form](Images/26.png)
 
 ## References
 

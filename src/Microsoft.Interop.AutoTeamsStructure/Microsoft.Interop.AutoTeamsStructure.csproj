@@ -64,7 +64,7 @@
     <Compile Include="Graph\TeamsApp.cs" />
     <Compile Include="Graph\TeamsAppConfiguration.cs" />
     <Compile Include="Graph\TeamsController.cs" />
-    <Compile Include="Implementations\CovId19DataTrigger.cs" />
+    <Compile Include="Implementations\NationalWeatherEventTrigger.cs" />
     <Compile Include="Implementations\TeamsStructureFromSharePointExtractor.cs" />
     <Compile Include="Interfaces\ITeamsStructureExtractor.cs" />
     <Compile Include="Interfaces\ITrigger.cs" />

@@ -14,6 +14,7 @@ namespace Microsoft.Interop.AutoTeamsStructure
     public class Executor
     {
         private static readonly string DefaultChannelName = "General";
+
         public static void Run()
         {
             using (GraphClientManager manager = new GraphClientManager())
@@ -31,9 +32,9 @@ namespace Microsoft.Interop.AutoTeamsStructure
 
                 IDictionary<string, IEnumerable<TeamsApp>> channelAppDictionary =
                     teamsStructureExtractor.GetChannelAppsDictionary();
-                Thread.Sleep(100);
+                Thread.Sleep(5000);
 
-                foreach (string groupId in trigger.GetNewTeamsGroupIds())
+                foreach (string groupId in trigger.GetTeamsGroupIds())
                 {
                     try
                     {
@@ -64,6 +65,7 @@ namespace Microsoft.Interop.AutoTeamsStructure
                                 channelId =
                                     teamsController.CreateChannelAsync(groupId, channelName, manager.GetGraphHttpClient())
                                         .GetAwaiter().GetResult();
+                                Console.WriteLine($"Created channel for group {groupId}: {channelName}.");
                                 Thread.Sleep(100);
                             }
 
@@ -73,7 +75,8 @@ namespace Microsoft.Interop.AutoTeamsStructure
                                 {
                                     teamsController.UploadFileAsync(groupId, channelName,
                                         File.ReadAllBytes(file.FullName), file.Name,
-                                        manager.GetGraphHttpClient()).GetAwaiter().GetResult();
+                                        manager.GetDelegateGraphClient()).GetAwaiter().GetResult();
+                                    Console.WriteLine($"Update document for channel {groupId}: {channelName}.");
                                     Thread.Sleep(100);
                                 }
                             }
@@ -85,22 +88,29 @@ namespace Microsoft.Interop.AutoTeamsStructure
                                     teamsController
                                         .AddCustomTabAsync(groupId, channelId, app, manager.GetGraphHttpClient())
                                         .GetAwaiter().GetResult();
+                                    Console.WriteLine($"Added app for channel {groupId}: {channelName}.");
                                     Thread.Sleep(100);
                                 }
                             }
                         }
-
                     }
                     catch (AutoTeamsStructureException e)
                     {
                         if (e.Message.Contains("Team already exists"))
                         {
-                            Console.WriteLine($"Teams team for group {groupId} already created, skip.");
+                            Console.WriteLine($"Teams team for group {groupId} already created.");
                         }
                         else
                         {
                             throw;
                         }
+                    }
+
+                    string addtionalChannel = trigger.GetCustomChannelForGroup(groupId);
+                    if (addtionalChannel != null)
+                    {
+                        teamsController.CreateChannelAsync(groupId, addtionalChannel, manager.GetGraphHttpClient())
+                            .GetAwaiter().GetResult();
                     }
                 }
             }

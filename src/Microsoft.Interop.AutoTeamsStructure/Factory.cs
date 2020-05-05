@@ -11,6 +11,7 @@ namespace Microsoft.Interop.AutoTeamsStructure
     public class Factory
     {
         private readonly GraphClientManager graphClientManager;
+
         public Factory(GraphClientManager _graphClientManager)
         {
             graphClientManager = _graphClientManager ?? throw new ArgumentException(nameof(_graphClientManager));
@@ -19,7 +20,7 @@ namespace Microsoft.Interop.AutoTeamsStructure
         public ITrigger GetTrigger()
         {
             GroupsController groupsController = new GroupsController();
-            return new Covid19DataTrigger(groupsController, graphClientManager);
+            return new NationalWeatherEventTrigger(groupsController, graphClientManager);
         }
 
         public ITeamsStructureExtractor GeTeamsStructureExtractor()
