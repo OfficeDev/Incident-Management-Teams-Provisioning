@@ -27,11 +27,22 @@ namespace Microsoft.Interop.AutoTeamsStructure
         private const string ChannelDocChannelNameFieldInSp = "ChannelDoc_ChannelNameLookupFieldInSP";
         private const string ChannelDocFileNameFieldInSp = "ChannelDoc_FileNameFieldInSP";
         private const string LookupFieldPostFixInSharePoint = "LookupId";
-
+        private const string NationalWeatherAlertsLimit = "NationalWeatherAlertsLimit";
+        private const string NewGroupDefaultOwnerId = "AdminUserId";
+        private const string AdminUserName = "AdminUserName";
+        private const string AdminPassword = "AdminPassword";
 
         public static string GraphBaseUri = $"https://graph.microsoft.com/{MsGraphApiVersion}";
 
-        public static string CovId19DataQueryUri => ConfigurationManager.AppSettings[JohnHopkinsDataQuery];
+        public static string NationalWeatherAlertApi = "https://api.weather.gov/alerts/active";
+
+        public static string NationalWeatherZoneApi = "https://api.weather.gov/zones?area=";
+
+        public static int AlertsLimit = int.Parse(ConfigurationManager.AppSettings[NationalWeatherAlertsLimit]);
+
+        public static string DelegatedUserName => ConfigurationManager.AppSettings[AdminUserName];
+
+        public static string DelegatedUserPwd => ConfigurationManager.AppSettings[AdminPassword];
 
         public static string MsGraphApiVersion => ConfigurationManager.AppSettings[GraphApiVersion];
 
@@ -40,6 +51,8 @@ namespace Microsoft.Interop.AutoTeamsStructure
         public static string ClientId => ConfigurationManager.AppSettings[AppClientId];
 
         public static string ClientSecret => ConfigurationManager.AppSettings[AppClientSecret];
+
+        public static string NewOwnerId => ConfigurationManager.AppSettings[NewGroupDefaultOwnerId];
 
         public static string SharePointGroupId => ConfigurationManager.AppSettings[SpGroupId];
 
@@ -70,6 +83,5 @@ namespace Microsoft.Interop.AutoTeamsStructure
             ConfigurationManager.AppSettings[ChannelDocChannelNameFieldInSp] + LookupFieldPostFixInSharePoint;
 
         public static string ChannelDocFileNameField => ConfigurationManager.AppSettings[ChannelDocFileNameFieldInSp];
-
     }
 }

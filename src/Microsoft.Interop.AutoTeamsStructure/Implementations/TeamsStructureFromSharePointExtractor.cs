@@ -34,7 +34,7 @@ namespace Microsoft.Interop.AutoTeamsStructure.Implementations
         {
             Dictionary<string, IEnumerable<FileInfo>> result = new Dictionary<string, IEnumerable<FileInfo>>();
             IEnumerable<JObject> channels = GetChannelListItems(Settings.SharePointGroupId, Settings.ChannelListName);
-            IEnumerable<JObject> teamsChannelDoclistItems = sharePointController.GetListItems(graphClientManager.GetGraphHttpClient(),
+            IEnumerable<JObject> teamsChannelDoclistItems = sharePointController.GetListItems(graphClientManager.GetDelegateGraphClient(),
                 Settings.SharePointGroupId, Settings.ChannelDocListName);
             foreach (JObject item in teamsChannelDoclistItems)
             {
@@ -49,7 +49,7 @@ namespace Microsoft.Interop.AutoTeamsStructure.Implementations
                         string fileName = item["fields"]?[Settings.ChannelDocFileNameField]?.ToString();
                         if (!string.IsNullOrWhiteSpace(fileName))
                         {
-                            string fileDownloadUrl = sharePointController.GetDocItemDownloadUrl(graphClientManager.GetGraphHttpClient(),
+                            string fileDownloadUrl = sharePointController.GetDocItemDownloadUrl(graphClientManager.GetDelegateGraphClient(),
                                 Settings.SharePointGroupId, Settings.ChannelDocListName, item["id"].ToString());
                             string tempFileName = $"{TempFileFolder}/{fileName}";
                             DownLoadTemplateFile(tempFileName, fileDownloadUrl);
@@ -85,7 +85,7 @@ namespace Microsoft.Interop.AutoTeamsStructure.Implementations
         {
             Dictionary<string, IEnumerable<TeamsApp>> result = new Dictionary<string, IEnumerable<TeamsApp>>();
             IEnumerable<JObject> channels = GetChannelListItems(Settings.SharePointGroupId, Settings.ChannelListName);
-            IEnumerable<JObject> teamsChannelApplistItems = sharePointController.GetListItems(graphClientManager.GetGraphHttpClient(),
+            IEnumerable<JObject> teamsChannelApplistItems = sharePointController.GetListItems(graphClientManager.GetDelegateGraphClient(),
                 Settings.SharePointGroupId, Settings.ChannelAppListName);
             foreach (JObject item in teamsChannelApplistItems)
             {
@@ -154,7 +154,7 @@ namespace Microsoft.Interop.AutoTeamsStructure.Implementations
 
         private IEnumerable<JObject> GetChannelListItems(string siteGroupId, string channelListName)
         {
-            IEnumerable<JObject> listItems = sharePointController.GetListItems(graphClientManager.GetGraphHttpClient(),
+            IEnumerable<JObject> listItems = sharePointController.GetListItems(graphClientManager.GetDelegateGraphClient(),
                 siteGroupId, channelListName);
             if (listItems == null)
             {
